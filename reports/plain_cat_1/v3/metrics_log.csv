@@ -1,0 +1,11 @@
+run_id,seed,img_v1,img_v2,clip_sub_v1,clip_sub_v2,clip_sty_v1,clip_sty_v2,lpips,ssim,sharpness_v1,sharpness_v2,color_dist
+1,4975542376517705329,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00001_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00001_.png,0.3618,0.3244,0.3262,0.3717,0.3968,0.4012,692.32,544.56,0.789
+2,5221309345465219597,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00002_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00002_.png,0.3609,0.3138,0.3304,0.382,0.5316,0.302,759.97,1065.59,0.8
+3,9127595616961305105,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00003_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00003_.png,0.3599,0.3197,0.3309,0.3717,0.3803,0.3874,528.21,736.43,0.7181
+4,1839207564699171156,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00004_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00004_.png,0.3547,0.3163,0.3232,0.3888,0.5104,0.3164,1005.43,802.75,0.7089
+5,4903746247309866520,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00005_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00005_.png,0.3584,0.3164,0.3263,0.3659,0.3363,0.4695,664.68,584.76,0.7651
+6,8960879199371597860,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00006_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00006_.png,0.3644,0.3258,0.3312,0.3893,0.3834,0.4287,644.22,779.68,0.7293
+7,2594618589021963696,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00007_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00007_.png,0.3375,0.3182,0.3151,0.3849,0.3554,0.3989,715.26,409.49,0.7088
+8,2172503491147163478,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00008_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00008_.png,0.3418,0.3267,0.3233,0.3767,0.5902,0.297,497.58,512.27,0.6712
+9,2798785665419454922,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00009_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00009_.png,0.3296,0.3331,0.3076,0.3867,0.5315,0.3336,573.02,310.63,0.7284
+10,439499409080378512,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00010_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v3_00010_.png,0.3379,0.3216,0.3216,0.3791,0.5499,0.2538,882.96,893.67,0.6988

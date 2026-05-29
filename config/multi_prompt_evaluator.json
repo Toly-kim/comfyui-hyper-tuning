@@ -1,0 +1,74 @@
+{
+  "4": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    }
+  },
+  "10": {
+    "class_type": "PromptBatchLoader",
+    "inputs": {
+      "variants_json": "[{\"version\": \"1\", \"test\": \"baseline\", \"subject\": \"A Jedi knight\", \"style\": \"Van Gogh style\"}, {\"version\": \"2\", \"test\": \"Subject\", \"subject\": \"A Jedi knight riding a unicorn\", \"style\": \"Van Gogh style, thick impasto\"}]"
+    }
+  },
+  "20": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "batch_size": ["10", 5],
+      "width": 1024,
+      "height": 1024
+    }
+  },
+
+  "30": {
+    "class_type": "BatchCLIPTextEncode",
+    "inputs": {
+      "text_list": ["10", 0],
+      "clip": ["4", 1]
+    }
+  },
+  "40": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "blurry, low quality, distorted",
+      "clip": ["4", 1]
+    }
+  },
+  "50": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 111,
+      "steps": 25,
+      "cfg": 7.0,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": ["4", 0],
+      "positive": ["30", 0],
+      "negative": ["40", 0],
+      "latent_image": ["20", 0]
+    }
+  },
+  "60": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["50", 0],
+      "vae": ["4", 2]
+    }
+  },
+  "70": {
+    "class_type": "MultiMetricScorer",
+    "inputs": {
+      "images": ["60", 0],
+      "subject_list": ["10", 1],
+      "style_list": ["10", 2],
+      "version_list": ["10", 3],
+      "test_list": ["10", 4],
+      "iteration_list": ["10", 6],
+      "seed_list": ["10", 7],
+      "experiment_name": "mega_experiment",
+      "log_to_csv": "enable",
+      "run_count": 1
+    }
+  }
+}

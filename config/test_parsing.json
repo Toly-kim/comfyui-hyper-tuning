@@ -1,0 +1,10 @@
+{
+  "prompt": {
+    "10": {
+      "class_type": "PromptBatchProvider",
+      "inputs": {
+        "variants_json": "[{\"version\": \"v1\", \"test\": \"test\", \"subject\": \"cat\", \"style\": \"oil\"}]"
+      }
+    }
+  }
+}

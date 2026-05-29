@@ -1,0 +1,11 @@
+run_id,seed,img_v1,img_v2,clip_sub_v1,clip_sub_v2,clip_sty_v1,clip_sty_v2,lpips,ssim,sharpness_v1,sharpness_v2,color_dist
+1,4111628597689052299,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00001_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00001_.png,0.3797,0.4018,0.2476,0.2496,0.5657,0.3575,75.94,65.86,0.0
+2,2258025843987845959,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00002_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00002_.png,0.3826,0.3749,0.242,0.2454,0.6799,0.3395,107.8,63.63,0.0
+3,2439723296750787937,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00003_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00003_.png,0.3859,0.3966,0.247,0.2483,0.5081,0.3772,98.01,67.15,0.0
+4,849155296867976708,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00004_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00004_.png,0.3683,0.3689,0.2463,0.2344,0.521,0.2343,156.88,166.55,0.0
+5,6267414482378609277,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00005_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00005_.png,0.3396,0.4178,0.2409,0.2367,0.6256,0.2406,135.58,77.03,0.0
+6,2837281484086705082,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00006_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00006_.png,0.3905,0.3759,0.241,0.2393,0.4287,0.3436,114.53,131.8,0.0
+7,1027283463318233443,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00007_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00007_.png,0.3849,0.3947,0.2458,0.2356,0.5819,0.3863,77.79,67.2,0.0
+8,6107847844295216885,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00008_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00008_.png,0.3554,0.4033,0.2369,0.2498,0.5763,0.2798,96.75,80.41,0.0
+9,1108675991498998881,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00009_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00009_.png,0.3861,0.406,0.2421,0.2579,0.5831,0.3769,107.51,57.64,0.0
+10,4472804384002452818,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00010_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00010_.png,0.3893,0.4073,0.2514,0.2495,0.5755,0.3938,69.37,68.66,0.0

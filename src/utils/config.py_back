@@ -1,0 +1,80 @@
+COMFYUI_SERVER_URL = "https://all-spiders-visit.loca.lt"
+
+PROMPT_URL = f"{COMFYUI_SERVER_URL}/prompt"
+MODEL_TO_USE = "v1-5-pruned-emaonly.ckpt"
+WORKFLOW_JSON_PATH = "../../knight_api.json"
+
+# PROMPT_VERSION = "prompt_v1"
+# PROMPT_VERSION = "prompt_v2"
+NEW_PROMPT_TEXT = "A valiant Jedi Knight riding a unicorn on Mars, post-impressionism, swirling brushstrokes, cinematic lightin"
+PROMPT_V1 = {"A valiant Jedi Knight, riding a unicorn through the Martian desert. "
+             "Style of Vincent Van Gogh, swirling brushstrokes, "
+             "dramatic lighting, highly detailed, atmospheric, sci-fi fantasy"
+}
+#Jedi Knight riding a unicorn on Martian desert. Style of Vincent Van Gogh
+
+PROMPT_V2 = {
+    "Post-impressionism, in the style of Vincent Van Gogh, thick impasto brushstrokes, swirling texture, vivid color palette. "
+    "A valiant Jedi Knight riding a majestic unicorn across the Martian desert. "
+    "The unicorn is fully painted in Van Gogh brushwork (full body visible, anatomically correct muzzle, flowing mane, elegant pose). "
+    "Foreground and background must share the same painterly style and lighting. "
+    "Cinematic composition, balanced framing."
+}
+PROMPT = {
+    "A valiant Jedi Knight riding a unicorn in the Martian desert. "
+    "The knight and the unicorn are painted with thick, expressive oil brushstrokes, heavy impasto texture, visible swirling strokes on their bodies and armor. "
+    "Bold colors, hand-painted look, rough painterly outlines. "
+    "Background Martian desert and sky in the same painterly oil style. Highly detailed, expressive, dynamic"
+}
+#Jedi Knight riding a unicorn on Martian desert. thick, expressive oil brushstrokes. Same style
+
+NEUTRAL_PROMPT = {
+    "A Jedi Knight riding a unicorn in the Martian desert. Style of Vincent Van Gogh"
+}
+
+# Split the prompt for analysis
+PROMPT_SUBJECT = "A valiant Jedi Knight riding a unicorn across the Martian desert"
+PROMPT_STYLE = "Post-impressionism, style of Vincent Van Gogh, thick impasto brushstrokes, swirling texture"
+
+# PROMPT_V3 = {
+#     "A badass Jedi Knight riding a unicorn in the Martian desert. Style of Vincent Van Gogh"
+# }
+
+NEGATIVE_PROMPT_TEXT = (
+    "blurry, low quality, worst quality, noise, grain, lowres, distortion, "
+    "deformed, bad anatomy, extra limbs, extra fingers, poor composition, "
+    "watermark, signature, text, out of frame, tiling, out of focus."
+)
+
+CUSTOM_HEADERS = {
+    'User-Agent': 'ComfyUI_API_Client/1.0',
+    'Content-Type': 'application/json',
+    'Bypass-Tunnel-Reminder': 'true'
+}
+
+REQUIRED_FIELDS = ["type", "inputs", "properties"]
+
+# RUNS = 30
+RUNS = 2
+TIMEOUT = 10
+
+CSV_PATH = "../../runs_log.csv"
+CSV_PATH4READING = "runs_log.csv_v1"
+
+# Google Drive path
+DRIVE_PATH = "G:\My Drive\ComfyUI\output" #where generated images are stored
+OUTPUT_FOLDER = "c:\googleDrive_compare_grid"
+
+START_LEFT_IMG = "ComfyUI_00017_.png" # images by prompt_v1
+START_RIGHT_IMG = "ComfyUI_00077_.png" # images by prompt_v2, both have the same seed
+COUNT = 30
+OUTPUT_FILE_NAME = "experiment_results.csv"
+
+# Golden seeds SD 1.5
+# Positive Controls or Best
+GOLDEN_SEEDS = [4060893001621710758, 3968588591980469174, 4410489841115292937]
+# Hallucinations - half unicorn, half unicorn + cropped framing
+HALF_UNICORN_SEEDS = [3803832381056454920, 4845164282058514650, 4324032305178172890, 3984967898314323332,
+                      5356068622691714419, 2759045055857739850, 3343414029805560805]
+# Hallucinations - 2 knihgts
+TWO_KNIGHTS_SEEDS = [5958846617933112521]

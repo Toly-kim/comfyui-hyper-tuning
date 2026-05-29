@@ -1,0 +1,11 @@
+run_id,seed,img_v1,img_v2,clip_sub_v1,clip_sub_v2,clip_sty_v1,clip_sty_v2,lpips,ssim,sharpness_v1,sharpness_v2,color_dist
+1,4975542376517705329,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00001_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00011_.png,0.3618,0.3167,0.3042,0.4229,0.5178,0.4022,692.32,490.4,0.7636
+2,5221309345465219597,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00002_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00012_.png,0.3609,0.2987,0.3168,0.3907,0.5726,0.3286,759.97,667.34,0.7792
+3,9127595616961305105,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00003_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00013_.png,0.3599,0.3056,0.3086,0.4114,0.5013,0.3816,528.21,692.78,0.8187
+4,1839207564699171156,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00004_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00014_.png,0.3547,0.3103,0.3033,0.4233,0.556,0.3479,1005.43,598.55,0.7867
+5,4903746247309866520,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00005_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00015_.png,0.3584,0.288,0.3089,0.4134,0.5436,0.4255,664.68,480.25,0.7808
+6,8960879199371597860,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00006_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00016_.png,0.3644,0.2999,0.3081,0.4142,0.5161,0.4242,644.22,585.21,0.8258
+7,2594618589021963696,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00007_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00017_.png,0.3375,0.2818,0.3026,0.3981,0.6529,0.3371,715.26,517.29,0.8292
+8,2172503491147163478,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00008_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00018_.png,0.3418,0.3048,0.3162,0.3889,0.611,0.2865,497.58,547.17,0.728
+9,2798785665419454922,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00009_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00019_.png,0.3296,0.2974,0.2947,0.4223,0.6498,0.3033,573.02,244.45,0.7661
+10,439499409080378512,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00010_.png,G:\My Drive\ComfyUI\output\plain_cat_1_v1_00020_.png,0.3379,0.2938,0.3113,0.3971,0.5753,0.2571,882.96,694.05,0.7505

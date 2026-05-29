@@ -1,0 +1,7 @@
+Metric,V1_Mean,V2_Mean,Delta_Mean,Improved_Pct
+CLIP Subject,0.35069,0.2997,-0.05099,0.0
+CLIP Style,0.30747,0.40823,0.10076,100.0
+Sharpness,696.365,551.749,-144.616,20.0
+LPIPS,,,0.56964,
+SSIM,,,0.34940000000000004,
+Color Dist,,,0.78286,

@@ -1,0 +1,5 @@
+run_id,seed,img_v1,img_v2,clip_sub_v1,clip_sub_v2,clip_sty_v1,clip_sty_v2,lpips,ssim,sharpness_v1,sharpness_v2,color_dist
+1,9.194E+18,G:\My Drive\ComfyUI\output\crfg_7.5_00005_.png,G:\My Drive\ComfyUI\output\cfg_3_00005_.png,0.3346,0.3295,0.2716,0.2639,0.1026,0.7377,76.47,61.43,0.6765
+2,5.80089E+18,G:\My Drive\ComfyUI\output\crfg_7.5_00005_.png,G:\My Drive\ComfyUI\output\crfg_18_00005_.png,0.3346,0.3195,0.2716,0.2504,0.1476,0.5686,76.47,163.41,0.7417
+3,4.92595E+18,G:\My Drive\ComfyUI\output\crfg_7.5_00005_.png,G:\My Drive\ComfyUI\output\cfg_3_00004_.png,0.3346,0.342,0.2716,0.2342,0.6183,0.1893,76.47,131.33,0.5857
+3,4.92595E+18,G:\My Drive\ComfyUI\output\crfg_7.5_00005_.png,G:\My Drive\ComfyUI\output\crfg_18_00004_.png,0.3346,0.2447,0.2716,0.2446,0.6758,0.2011,76.47,199.27,0.9772

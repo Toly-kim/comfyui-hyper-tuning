@@ -1,0 +1,8 @@
+version,test,avg_score,rank
+v7,Simple,0.5305,1
+v3,Style,0.4405,2
+v4,Style consistency,0.4339,3
+v1,Baseline,0.4065,4
+v2,Subject,0.3843,5
+v6,Density,0.3716,6
+v5,Composition,0.3594,7

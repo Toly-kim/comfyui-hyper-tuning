@@ -1,0 +1,11 @@
+run_id,seed,img_v1,img_v2,clip_sub_v1,clip_sub_v2,clip_sty_v1,clip_sty_v2,lpips,ssim,sharpness_v1,sharpness_v2,color_dist
+1,4111628597689052299,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00001_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00001_.png,0.3797,0.4018,0.2476,0.2496,0.5657,0.3575,971.68,685.1,0.7891
+2,2258025843987845959,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00002_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00002_.png,0.3826,0.3749,0.242,0.2454,0.6799,0.3395,1381.33,798.72,0.7894
+3,2439723296750787937,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00003_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00003_.png,0.3859,0.3966,0.247,0.2483,0.5081,0.3772,1307.02,926.79,0.8264
+4,849155296867976708,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00004_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00004_.png,0.3683,0.3689,0.2463,0.2344,0.521,0.2343,1306.58,1102.55,0.6031
+5,6267414482378609277,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00005_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00005_.png,0.3396,0.4178,0.2409,0.2367,0.6256,0.2406,1274.33,1048.25,0.7041
+6,2837281484086705082,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00006_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00006_.png,0.3905,0.3759,0.241,0.2393,0.4287,0.3436,1533.47,1452.79,0.7763
+7,1027283463318233443,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00007_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00007_.png,0.3849,0.3947,0.2458,0.2356,0.5819,0.3863,1066.93,805.2,0.8263
+8,6107847844295216885,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00008_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00008_.png,0.3554,0.4033,0.2369,0.2498,0.5763,0.2798,930.61,812.6,0.7286
+9,1108675991498998881,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00009_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00009_.png,0.3861,0.406,0.2421,0.2579,0.5831,0.3769,1296.51,741.19,0.8075
+10,4472804384002452818,G:\My Drive\ComfyUI\output\plain_cat_1_1_v1_1_00010_.png,G:\My Drive\ComfyUI\output\plain_cat_1_1_v2_1_00010_.png,0.3893,0.4073,0.2514,0.2495,0.5755,0.3938,851.61,824.38,0.7623

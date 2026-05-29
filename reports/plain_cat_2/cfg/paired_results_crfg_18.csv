@@ -1,0 +1,4 @@
+run_id,seed,img_v1_filename,prompt_version,img_v2_filename,timestamp
+1,9194004982435176683,plain_cat_1_1_v2_1_00001_.png,V2,plain_cat_2_00004_.png,2026-04-12T15:35:32.531603+00:00
+2,5800892314774049202,plain_cat_1_1_v2_1_00002_.png,V2,plain_cat_2_00005_.png,2026-04-12T15:36:17.537365+00:00
+3,4925946086378092904,plain_cat_1_1_v2_1_00003_.png,V2,plain_cat_2_00004_.png,2026-04-12T15:37:12.142293+00:00

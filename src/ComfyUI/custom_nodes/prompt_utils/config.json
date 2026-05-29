@@ -1,0 +1,9 @@
+{
+  "weights": {
+    "subject": 0.5,
+    "style": 0.3,
+    "sharpness": 0.2
+  },
+  "iterations": 10,
+  "notes": "The sum of the weights for CLIP (subject + style) must equal 1.0. Sharpness is not yet included in the final score because it operates on a different scale (0-1500)."
+}

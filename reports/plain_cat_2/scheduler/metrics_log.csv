@@ -1,0 +1,3 @@
+run_id,seed,img_v1,img_v2,clip_sub_v1,clip_sub_v2,clip_sty_v1,clip_sty_v2,lpips,ssim,sharpness_v1,sharpness_v2,color_dist
+1,9194004982435176683,G:\My Drive\ComfyUI\output\plain_cat_2_00002_.png,G:\My Drive\ComfyUI\output\simple_00005_.png,0.3351,0.3321,0.2717,0.2683,0.0645,0.7259,80.31,77.54,0.5775
+2,5800892314774049202,G:\My Drive\ComfyUI\output\plain_cat_2_00002_.png,G:\My Drive\ComfyUI\output\exponential_00005_.png,0.3351,0.3325,0.2717,0.266,0.1004,0.6834,80.31,86.55,0.5774

@@ -1,0 +1,276 @@
+# Metadata
+experiment_name: "Jedi_Unicorn_VanGogh_Stability_Test"
+version: "1.0"
+
+# Connection Settings
+server:
+  url: "https://red-hotels-add.loca.lt/"
+  endpoint: "/prompt"
+  history_endpoint: "/history"
+  object_info_endpoint : "/object_info"
+  headers:
+    User-Agent: "ComfyUI_API_Client/1.0"
+    Content-Type: "application/json"
+    Bypass-Tunnel-Reminder: "true"
+
+# Model & Workflow
+model:
+  checkpoint: "v1-5-pruned-emaonly.ckpt"
+  checkpoin_sdxlt: "sd_xl_base_1.0.safetensors"
+  workflow_json: "knight_api.json"
+  workflow_sdxl_json: "knight_sdxl_api.json"
+  wf_multi_prompt: "multi_prompt.json"
+
+params:
+  width: 1024
+  height: 1024
+  # todo: Steps are ignored, loaded default from wf. Fix it!
+  steps: 30
+
+# Prompts for Generation
+active_experiment: "hyperparameter_tuning_2"
+experiments:
+  # SD1.5
+  jedi_van_gogh_1:
+  # a first basic prompt
+    v1: "A valiant Jedi Knight, riding a unicorn through the Martian desert. Style of Vincent Van Gogh, swirling brushstrokes, 
+  dramatic lighting, highly detailed, atmospheric, sci-fi fantasy."
+  # fixing anatomic details
+    v2: "Post-impressionism, in the style of Vincent Van Gogh, thick impasto brushstrokes, swirling texture, vivid color palette. 
+  A valiant Jedi Knight riding a majestic unicorn across the Martian desert. 
+  The unicorn is fully painted in Van Gogh brushwork (full body visible, anatomically correct muzzle, flowing mane, elegant pose). 
+  Foreground and background must share the same painterly style and lighting. Cinematic composition, balanced framing."
+
+  # SDXL
+  jedi_van_gogh_2:
+  # a first basic prompt
+    v1: "A valiant Jedi Knight, riding a unicorn through the Martian desert. Style of Vincent Van Gogh, swirling brushstrokes, 
+  dramatic lighting, highly detailed, atmospheric, sci-fi fantasy."
+  # A prompt focusing on atmosphere and emotion
+    v2: "An evocative oil painting of a solitary Jedi Knight on a majestic unicorn, silhouetted against a vast Martian horizon. 
+  Style of Vincent Van Gogh, thick impasto texture. Two moons, Phobos and Deimos, hang in a swirling crimson and rust-colored starry night sky. 
+  Low angle wide shot. Atmospheric layering: red dust motes, suspended sand particles, and a haunting heat haze. 
+  Golden hour lighting, the harsh glow of a dying sun casting long, dramatic shadows. A sense of epic solitude and cosmic wonder."
+
+  # SDXL
+  jedi_van_gogh_3:
+    # I like an athmosphere at generated imhs from jedi_van_gogh_2. So, I left the prompt v1 from jedi_van_gogh_2: with no change..
+    v1: "An evocative oil painting of a solitary Jedi Knight on a majestic unicorn, silhouetted against a vast Martian horizon. 
+  Style of Vincent Van Gogh, thick impasto texture. Two moons, Phobos and Deimos, hang in a swirling crimson and rust-colored starry night sky. 
+  Low angle wide shot. Atmospheric layering: red dust motes, suspended sand particles, and a haunting heat haze. 
+  Golden hour lighting, the harsh glow of a dying sun casting long, dramatic shadows. A sense of epic solitude and cosmic wonder."
+    # but, I want to emphasize his emotion with no weights
+    v2: "Oil painting by Vincent Van Gogh, thick impasto. 
+  A battle-worn, ragged Jedi Knight on a majestic unicorn, exhausted posture but determined gaze, tattered robes and scuffed armor, epic solitude on a vast Martian horizon. 
+  Swirling rust-colored starry night sky, Phobos and Deimos moons. Low angle shot, dramatic long shadows. Vivid swirling brushstrokes, thick paint texture, red dust motes. 
+  A mix of weary vulnerability and quiet strength."
+    # but, I want to emphasize his emotion with weights
+    v3: "(Oil painting by Vincent Van Gogh:0.8), (thick impasto:0.8).
+     A battle-worn, ragged Jedi Knight on a majestic unicorn, (exhausted posture:1.2) but (determined gaze:1.3), tattered robes and scuffed armor, (epic solitude:1.3) on a vast Martian horizon.
+     Swirling rust-colored starry night sky, Phobos and Deimos moons. Low angle shot, dramatic long shadows. Vivid swirling brushstrokes, thick paint texture, red dust motes.
+     A mix of (weary vulnerability:1.3) and (quiet strength:1.2)."
+    #
+    v3_1: "Oil painting by Vincent Van Gogh:0.8), (thick impasto:0.7).
+    A (battle-worn, ragged Jedi Knight:1.2) on a majestic unicorn, (exhausted posture:1.2) but (determined gaze:1.3), (tattered robes and scuffed armor:1.1), (epic solitude:1.2) on a vast Martian horizon.
+    Swirling rust-colored starry night sky, Phobos and Deimos moons. Low angle shot, dramatic long shadows. Vivid swirling brushstrokes, thick paint texture, red dust motes.
+    A mix of (weary vulnerability:1.3) and (quiet strength:1.2)."
+    v3_2: "(Oil painting by Vincent Van Gogh:0.5), (thick impasto:0.5).
+     A battle-worn, ragged Jedi Knight on a majestic unicorn, (exhausted posture:1.8) but (determined gaze:1.8), tattered robes and scuffed armor, (epic solitude:1.9) on a vast Martian horizon.
+     Swirling rust-colored starry night sky, Phobos and Deimos moons. Low angle shot, dramatic long shadows. Vivid swirling brushstrokes, thick paint texture, red dust motes.
+     A mix of (weary vulnerability:1.8) and (quiet strength:1.7)."
+
+  # SDXL
+#  plain_cat_1:
+  plain_cat_1_1:
+    # Focuing on a Simple cosmic cat. No background noise. See how tokens like Photorealistic, sharp focus work
+    v1_1:
+      subject: "A close-up portrait of a fluffy tabby cat, with big green eyes. Single color studio background"
+      style: "Minimalist composition. Photorealistic, 8k, highly detailed, sharp focus."
+    v1_2:
+      subject: "A close-up portrait of a fluffy tabby cat, with big green eyes"
+      style: "Single color studio background. Minimalist composition. Photorealistic, 8k, highly detailed, sharp focus."
+    # Keeping the same cat, but replacing background. Testing a token rain-slicked neon
+    v2_1:
+      subject: "A close-up portrait of a fluffy tabby cat, with big green eyes. Perched on a rain-slicked neon rooftop in a futuristic cyberpunk city"
+      style: "Photorealistic, 8k, highly detailed, sharp focus."
+      # Isolated subject to see style change
+    v2_2:
+      subject: "A close-up portrait of a fluffy tabby cat, with big green eyes"
+      style: "Perched on a rain-slicked neon rooftop in a futuristic cyberpunk city. Photorealistic, 8k, highly detailed, sharp focus."
+    # but, I want to emphasize his emotion with weights
+#    v3: "A close-up portrait of a (fluffy tabby cat:0.7). (Cat is made of swirling galaxy dust and stars:1.4).
+#    Green eyes. Single color studio background. Minimalist composition. (Ethereal cosmic glowing effect:1.3). Photorealistic, 8k, sharp focus"
+    v3_1:
+      subject: "A close-up portrait of a (fluffy tabby cat:0.7). (Cat is made of swirling galaxy dust and stars:1.4). Green eyes. Single color studio background"
+      style: "Minimalist composition. (Ethereal cosmic glowing effect:1.3). Photorealistic, 8k, sharp focus"
+
+  # SDXL
+  plain_cat_2:
+    # Testing matrix 3x3. Keeping the same prompt, but changing steps, CFG, Sampler,
+    v1:
+      subject: "A close-up portrait of a fluffy tabby cat, with big green eyes"
+      style: "Single color studio background. Minimalist composition. Photorealistic, 8k, highly detailed, sharp focus."
+    v2:
+      subject: "A close-up portrait of a fluffy tabby cat, with big green eyes"
+      style: "Single color studio background. Minimalist composition. Photorealistic, 8k, highly detailed, sharp focus."
+
+  # Custom Comfy node
+  router_best_output_selector:
+    # Baseline
+    v1:
+      test: "Baseline"
+      subject: "A valiant Jedi Knight riding a unicorn in the Martian desert"
+      style: "Van Gogh style"
+    # Subject
+    v2:
+      test: "Subject"
+      subject: "A valiant Jedi Knight riding a unicorn, full body unicorn, correct proportions, well-defined legs, realistic anatomy, no extra limbs, Martian desert"
+      style: "Van Gogh style"
+    # Style
+    v3:
+      test: 'Style'
+      subject: "A valiant Jedi Knight riding a unicorn in the Martian desert"
+      style: "Oil painting in Van Gogh style, thick impasto, swirling brushstrokes, vivid colors"
+    # Style consistency
+    v4:
+      test: 'Style consistency'
+      subject: "A valiant Jedi Knight riding a unicorn in the Martian desert"
+      style: "Oil painting in Van Gogh style, foreground and background share the same painterly texture and lighting"
+    # Composition
+    v5:
+      test: 'Composition'
+      subject: "A valiant Jedi Knight riding a unicorn in the Martian desert"
+      style: "Low angle wide shot, full body Jedi riding a unicorn, centered composition, no cropping, Martian desert, Van Gogh oil painting style"
+    # Density
+    v6:
+      test: 'Density'
+      subject: "A valiant Jedi Knight riding a unicorn in the Martian desert"
+      style: "Highly detailed oil painting in Van Gogh style, thick impasto, swirling brushstrokes, dramatic lighting, dust particles, atmospheric depth"
+    # Simple
+    v7:
+      test: 'Simple'
+      subject: "A Jedi riding a unicorn"
+      style: "Oil painting in Van Gogh style"
+
+  # Testing Hyperparameter Tuning on Comfy custom node
+  hyperparameter_tuning:
+    v1:
+      test: "Sampler_Sweep_CFG"
+      subject: "An advanced time-travel stabilizer mechanism on a high-tech workshop table, intricate gears, glowing neon vacuum tubes, holographic schematics floating in mid-air"
+      style: "Cyberpunk aesthetic, cinematic lighting, volumetric smoke, ray-traced metallic reflections, 8k resolution"
+      cfg: 3.0
+      steps: 25
+    v2:
+      test: "Sampler_Sweep_CFG"
+      subject: "An advanced time-travel stabilizer mechanism on a high-tech workshop table, intricate gears, glowing neon vacuum tubes, holographic schematics floating in mid-air"
+      style: "Cyberpunk aesthetic, cinematic lighting, volumetric smoke, ray-traced metallic reflections, 8k resolution"
+      cfg: 6.5
+      steps: 25
+    v3:
+      test: "Sampler_Sweep_CFG"
+      subject: "An advanced time-travel stabilizer mechanism on a high-tech workshop table, intricate gears, glowing neon vacuum tubes, holographic schematics floating in mid-air"
+      style: "Cyberpunk aesthetic, cinematic lighting, volumetric smoke, ray-traced metallic reflections, 8k resolution"
+      cfg: 9.5
+      steps: 25
+    v4:
+      test: "Sampler_Sweep_CFG"
+      subject: "An advanced time-travel stabilizer mechanism on a high-tech workshop table, intricate gears, glowing neon vacuum tubes, holographic schematics floating in mid-air"
+      style: "Cyberpunk aesthetic, cinematic lighting, volumetric smoke, ray-traced metallic reflections, 8k resolution"
+      cfg: 14
+      steps: 25
+
+  # Testing Hyperparameter Tuning on Comfy custom node
+  hyperparameter_tuning_2:
+    v1:
+      test: "steps"
+      subject: "An open, intricate time-travel pocket chronometer resting on a high-tech workshop table, exposed internal brass gears meshing with glowing blue neon vacuum tubes, fine holographic schematics floating in mid-air above the device"
+      style: "Cinematic workshop atmosphere, hyper-detailed cyberpunk workshop, 8k resolution."
+      cfg: 6.0
+      steps: 15
+    v2:
+      test: "steps"
+      subject: "An open, intricate time-travel pocket chronometer resting on a high-tech workshop table, exposed internal brass gears meshing with glowing blue neon vacuum tubes, fine holographic schematics floating in mid-air above the device"
+      style: "Cinematic workshop atmosphere, hyper-detailed cyberpunk workshop, 8k resolution."
+      cfg: 6.0
+      steps: 22
+    v3:
+      test: "steps"
+      subject: "An open, intricate time-travel pocket chronometer resting on a high-tech workshop table, exposed internal brass gears meshing with glowing blue neon vacuum tubes, fine holographic schematics floating in mid-air above the device"
+      style: "Cinematic workshop atmosphere, hyper-detailed cyberpunk workshop, 8k resolution."
+      cfg: 6.0
+      steps: 28
+    v4:
+      test: "steps"
+      subject: "An open, intricate time-travel pocket chronometer resting on a high-tech workshop table, exposed internal brass gears meshing with glowing blue neon vacuum tubes, fine holographic schematics floating in mid-air above the device"
+      style: "Cinematic workshop atmosphere, hyper-detailed cyberpunk workshop, 8k resolution."
+      cfg: 6.0
+      steps: 35
+
+prompts:
+  negative: "blurry, low quality, worst quality, noise, grain, lowres, distortion, deformed, bad anatomy, extra limbs, 
+  extra fingers, poor composition, watermark, signature, text, out of frame, tiling, out of focus."
+#  negative_4_sdxl: "text, watermark, signature, blurry, low quality, distorted"
+  # Negative prompt^ forbid fur and other natural cat's attributes
+#  negative_4_sdxl: "fur, hair, skin, organic texture, biological matter"
+#  base_test_prompt: "A Jedi Knight riding a unicorn in the Martian desert. Style of Vincent Van Gogh"
+#  subject_prompt: "A valiant Jedi Knight riding a unicorn across the Martian desert"
+#  style_prompt: "Post-impressionism, style of Vincent Van Gogh, thick impasto brushstrokes, swirling texture"
+
+# Evaluation Split (For CLIP Subject/Style metrics)
+#eval_metrics:
+
+# Golden Seeds Groups
+test_suites:
+  best_seeds: [4060893001621710758, 3968588591980469174, 4410489841115292937]
+  half_unicorn_seeds: [3803832381056454920, 4845164282058514650, 4324032305178172890, 3984967898314323332, 5356068622691714419, 2759045055857739850, 3343414029805560805]
+  two_knights_seeds: [5958846617933112521]
+
+# Paths
+paths:
+  input_drive: "G:\\My Drive\\ComfyUI\\output"
+  output_grid: "C:\\googleDrive_compare_grid\\testsdxl\\plain_cat_2"
+  paired_results_csv: "paired_results.csv"
+  paired_analysis: "paired_analysis.csv"
+  metrics_log_csv: "metrics_log.csv"
+  test_metrics_log_csv: "test_metrics_log.csv"
+  summary_stats_csv: "summary_stats.csv"
+  test_paired_results: "test_paired_results.csv"
+  experiments_dir: "sdxl"
+  start_left_img: "plain_cat_1_1_v1_1_00001_.png"
+  start_right_img: "plain_cat_1_1_v2_1_00001_.png"
+  csv_file_name: "runs_log.csv"
+  csv_file_name4paired_run: "runs_log.csv"
+  all_prompts_csv: "all_prompts_results.csv"
+  all_prompts_score: "all_prompts_score.csv"
+  select_best_output: "select_best_output.csv"
+  prompt_ranking: "prompt_ranking.csv"
+
+# run params
+runs:
+  timeout: 30
+  count: 2
+
+# metrics
+metrics:
+  delta_mean_threshold: 0.01
+  improved_pct_threshold: 50
+
+#weights
+weights:
+  subject_clip: 0.4
+  style_clip: 0.2
+  ssim: 0.15
+  lpips_inv: 0.15
+  sharpness: 0.1
+
+#penalties
+penalties: 0.25
+#cropping: 0.0
+#anatomical_errors: 0.0
+
+# test custom node
+custom_node:
+  test_json: 'test_json.json'
+  test_image: '/content/drive/MyDrive/ComfyUI/output/uni_pc_00005_.png'
+  test_img_description: 'A photo of a cat'
+  test_wf: "test_parsing.json"
