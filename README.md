@@ -60,3 +60,4 @@ This isolates noise distribution from parameter behavior, though it requires bro
 2. **Execution:** Execute the headless orchestration layer:
    ```bash
    python orchestrator.py
+2. **Data Retrieval:** Upon pipeline completion, inspect the analytical summary directly inside output/prompt_ranking.csv.
