@@ -23,13 +23,13 @@ The framework operates via a decoupled server-side orchestration loop that bypas
 * **Function:** Performs automated, post-decode tensor analysis. It extracts pixel data directly from the VAE layer and routes it through two primary analytical pipelines:
   * **Semantic Alignment:** Evaluates prompt adherence using the `openai/clip-vit-large-patch14` embedding space.
   * **Structural Sharpness:** Computes a Laplacian variance kernel to detect edge contrast quality and capture pixel burnout or texture degradation.
-  * **Output:** Generates a tournament-style aggregation matrix written directly to `output/prompt_ranking.csv`.
+  * **Output:** Generates a tournament-style aggregation matrix written directly to `ComfyUI/output/experiment_name/prompt_ranking.csv` on Google Drive.
 
 ---
 
 ## System Evolution & R&D Milestones
 
-The infrastructure reached its current monolithic state through an iterative series of development phases designed to systematically eliminate confounding variables and evaluation errors:
+The infrastructure reached its current state through an iterative series of development phases designed to systematically eliminate confounding variables and evaluation errors:
 
 * **Phase 1: API-Driven Baseline:** Initial implementation focused on triggering generation requests via the ComfyUI Frontend API and routing completed files to an external post-processing environment for metric calculation.
 * **Phase 2: Paired Evaluation:** Automation of basic A/B testing paradigms, executing dual-variant runs under structurally identical conditions to isolate single-variable impacts.
