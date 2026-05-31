@@ -34,7 +34,7 @@ The infrastructure reached its current state through an iterative series of deve
 ### Phase 1: API-Driven Baseline & Metrics Setup
 * **Context & Bottleneck:** Initial attempts relied on purely visual inspection of outputs from the ComfyUI Frontend API[cite: 1]. However, manual evaluation proved highly subjective and lacked scalability. To establish objective baselines, automated telemetry was introduced to calculate raw metrics from generated frames.
 * **Model Constraint:** This baseline phase was conducted entirely using Stable Diffusion 1.5. Due to persistent limitations in structural and semantic fidelity, the project transitioned to SDXL.
-* **Historical Documentation:** This phase is detailed in the archival report: [`Evaluation of Semantic Leakage and Style Integration in SD1.5`](./reports/evaluation_sd15.md).
+* **Historical Documentation:** This phase is detailed in the archival report: [`Evaluation of Semantic Leakage and Style Integration in SD1.5`](./reports/jedi_van_gogh_1/report.md)
 
 ### Phase 2: Paired Evaluation Paradigm
 * **Context & Bottleneck:** Having raw metrics for individual images was insufficient for tracking specific prompt or checkpoint updates without a controlled baseline.
@@ -46,12 +46,12 @@ The infrastructure reached its current state through an iterative series of deve
 * **Historical Documentation:** This transition and its associated telemetry are captured in: [`Performance Analysis: SDXL Transition & Semantic Optimization`](./reports/sdxl_transition.md).
 * **Iterative Optimization Sweeps:** Following the transition, two critical optimization sweeps were executed to resolve prompt pollution and hardware limits:
   1. **Prompt Slicing & Iteration (`plain_cat_1_1`):** Analyzed token behavior on a mathematically isolated subject (a cosmic cat) to clear conflicting prompt signals. Iterations step-by-step isolated subject modifiers from background noise (`v1_1` to `v2_2`) and introduced prompt weights to adjust emotional emphasis (`v3_1`). *Summary:* [`Prompt Iteration Evaluation on SDXL Base 1.0`](./reports/prompt_iteration_cat.md).
-  2. **Parameter Sensitivity Sweep (`plain_cat_2`):** Run on an NVIDIA Tesla T4 backend, this matrix evaluated the interactions between CFG, Steps, Samplers, and Schedulers[cite: 1]. It identified a distinct "Goldilocks Zone" (Steps=30, CFG=8), beyond which non-linear degradation occurred, such as chromatic burn and texture breakdown. *Summary:* [`SDXL A/B Testing Matrix & Inference Optimization`](./reports/parameter_sensitivity.md).
+  2. **Parameter Sensitivity Sweep (`plain_cat_2`):** Run on an NVIDIA Tesla T4 backend, this matrix evaluated the interactions between CFG, Steps, Samplers, and Schedulers[cite: 1]. It identified a distinct "Goldilocks Zone" (Steps=30, CFG=8), beyond which non-linear degradation occurred, such as chromatic burn and texture breakdown. *Summary:* [`SDXL A/B Testing Matrix & Inference Optimization`](./reports/jedi_van_gogh_2/report.md)
 
 ### Phase 4: Spatial Conditioning via ControlNet (Canny)
 * **Context & Bottleneck:** While prompt token adjustment and parameter tuning optimized semantic output, they could not resolve the fundamental structural limits inherent to SDXL's base composition engine when dealing with highly complex geometric boundaries.
 * **Implementation:** Integrated dense spatial conditioning via ControlNet (Canny edge detection) to enforce invariant geometric boundaries across text mutations[cite: 1]. Testing focused on precise "Object Removal and Addition" tasks by calibrating `High threshold`, `Strength`, `End Percent`, and Gaussian Blur `Sigma`. This allowed the system to isolate and map the exact "point of no return"—the threshold of **Semantic Handover** where spatial conditioning loses control to text-prompt generation.
-* **Historical Documentation:** Documented in: [`Structural Conditioning and Parameter Calibration Report`](./reports/controlnet_canny.md).
+* **Historical Documentation:** Documented in: [`Structural Conditioning and Parameter Calibration Report`](./reports/ControlNet/report.md)
 
 ### Phase 5: Semantic Isolation & Regression Testing
 * **Context & Bottleneck:** Processing complex prompts through ControlNet and dynamic weights revealed a telemetry flaw: passing complete, unified prompt strings into the CLIP validator caused massive signal cross-contamination between subject and style scores[cite: 1].
@@ -68,7 +68,7 @@ The infrastructure reached its current state through an iterative series of deve
 ### Phase 8: Native Backend Consolidation (Current State)
 * **Context & Bottleneck:** The system had grown into a fragmented array of external API calls, pipeline scripts, and file system watches, causing immense disk I/O bottlenecks and frequent memory leak collisions.
 * **Implementation:** Fully consolidated all isolated procedural scripts, testing harnesses, and scoring engines into native ComfyUI Python extensions (`Custom Nodes`)[cite: 1]. This centralized the tensor data-flow directly within the execution graph[cite: 1].
-* **Framework Telemetry Report:** The benchmarks, architecture, and performance results of this fully consolidated custom node structure are maintained in the root report: [`report.md`](./report.md)[cite: 1].
+* **Framework Telemetry Report:** The benchmarks, architecture, and performance results of this fully consolidated custom node structure are maintained in the report: [`report.md`](./reports/custom_node/report.md)
 
 ---
 
@@ -88,10 +88,8 @@ This isolates noise distribution from parameter behavior, though it requires bro
 
 ## Getting Started
 
-1. **Matrix Definition:** Configure your target variables within the execution dictionary inside the configuration module [`multi_prompt.json`](./multi_prompt.json).
+1. **Matrix Definition:** Configure your target variables within the execution dictionary inside the configuration module [`multi_prompt.json`](./config/multi_prompt.json)
 2. **Execution:** Execute the headless orchestration layer:
-```bash
+   ```bash
    python orchestrator.py
-
-1. **Matrix Definition:** 
-3. **Data Retrieval:** Upon pipeline completion, inspect the analytical summary directly inside the output directory: output/prompt_ranking.csv[cite: 1].
+3. **Data Retrieval:** Upon pipeline completion, inspect the analytical summary directly inside the output directory: ComfyUI/output/experiment_name/prompt_ranking.csv on Google Drive.
