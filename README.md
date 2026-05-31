@@ -89,7 +89,7 @@ This isolates noise distribution from parameter behavior, though it requires bro
 ## Getting Started
 
 1. **Matrix Definition:** Configure your target variables within the execution dictionary inside the configuration module [`multi_prompt.json`](./config/multi_prompt.json)
-2. **Execution:** Execute the headless orchestration layer:
+2. **Execution:** Execute [`the headless orchestration layer`](./src/multi_prompt/orchestrator.py):
    ```bash
    python orchestrator.py
 3. **Data Retrieval:** Upon pipeline completion, inspect the analytical summary directly inside the output directory: ComfyUI/output/experiment_name/prompt_ranking.csv on Google Drive.
