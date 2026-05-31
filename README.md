@@ -29,37 +29,69 @@ The framework operates via a decoupled server-side orchestration loop that bypas
 
 ## System Evolution & R&D Milestones
 
-The infrastructure reached its current state through an iterative series of development phases designed to systematically eliminate confounding variables and evaluation errors:
+The infrastructure reached its current state through an iterative series of development phases designed to systematically eliminate confounding variables and evaluation errors[cite: 1]. Every phase was initiated as a direct logical improvement to address the core bottlenecks of the previous step.
 
-* **Phase 1: API-Driven Baseline:** Initial implementation focused on triggering generation requests via the ComfyUI Frontend API and routing completed files to an external post-processing environment for metric calculation.
-* **Phase 2: Paired Evaluation:** Automation of basic A/B testing paradigms, executing dual-variant runs under structurally identical conditions to isolate single-variable impacts.
-* **Phase 3: Latent Stability Verification:** Implemented cross-prompt validation by locking the initial latent noise distribution while mutating token strings, isolating how effectively different prompt structures guide identical base noise. [`run_same_seed_another_prompt`](./src/core/propmt_run.py)
-* **Phase 4: Structural Conditioning via ControlNet (Canny):** Integrated dense spatial conditioning using ControlNet (Canny edge detection) to enforce geometric boundaries across test variants. This allowed the system to benchmark prompt text mutations and parameter adjustments against an invariant, complex spatial composition (e.g., testing structural rendering performance on highly irregular object intersections). [`report.md`](./reports/ControlNet/report.md)
-* **Phase 5: Semantic Isolation & Regression Testing:** * *Telemetry Refactor:* Discovered that evaluating entire combined prompt strings through the CLIP validator caused significant signal pollution. The input logic was refactored to explicitly decouple subject nouns from stylistic modifiers before scoring.
-  * *Regression Framework:* Built an automated test harness that reruns historical target images to verify that core metric calculations remain stable within floating-point precision during refactoring.  [run_test_identity_check](./src/metrics/calculate_metrics.py)
-* **Phase 6: Statistical Trend Aggregation:** Replaced raw outputs with higher-level mathematical delta indicators, computing `V1_Mean`, `V2_Mean`, `Delta_Mean`, and `Improved_Pct` across paired execution lanes to capture macro-level model performance shifts.
-* **Phase 7: Deterministic Initialization:** Replaced arbitrary random noise seeds with a curated array of verified "Golden Seeds"—noise distributions proven to yield optimal compositional complexity—ensuring that hyperparameter behaviors are tested against structurally sound baselines. [`run_golden_seeds`](./src/core/propmt_run.py)
-* **Phase 8: Native Backend Consolidation (Current State):** Migrated decoupled procedural scripts and evaluation routines into native ComfyUI Python extensions, consolidating the data-flow within the tensor pipeline and eliminating intermediate disk I/O bottlenecks.
+### Phase 1: API-Driven Baseline & Metrics Setup
+* **Context & Bottleneck:** Initial attempts relied on purely visual inspection of outputs from the ComfyUI Frontend API[cite: 1]. However, manual evaluation proved highly subjective and lacked scalability. To establish objective baselines, automated telemetry was introduced to calculate raw metrics from generated frames.
+* **Model Constraint:** This baseline phase was conducted entirely using Stable Diffusion 1.5. Due to persistent limitations in structural and semantic fidelity, the project transitioned to SDXL.
+* **Historical Documentation:** This phase is detailed in the archival report: [`Evaluation of Semantic Leakage and Style Integration in SD1.5`](./reports/evaluation_sd15.md).
+
+### Phase 2: Paired Evaluation Paradigm
+* **Context & Bottleneck:** Having raw metrics for individual images was insufficient for tracking specific prompt or checkpoint updates without a controlled baseline.
+* **Implementation:** Designed a structured architecture for automated **Paired Evaluation**[cite: 1]. Operating as a direct analogy to classic A/B testing, it ran dual-variant inferences under strictly identical environments to isolate single-variable impacts[cite: 1].
+
+### Phase 3: Transition to SDXL & Matrix Expansion
+* **Context & Bottleneck:** Moving to SDXL introduced massive composition shifts that random seeding obscured. 
+* **Implementation:** Implemented cross-prompt validation (`run_same_seed_another_prompt`) by locking the initial latent noise distribution while mutating token strings[cite: 1]. To stabilize comparative analysis, the infrastructure began generating stitched grids (combining paired outputs sharing identical seeds into a single matrix).
+* **Historical Documentation:** This transition and its associated telemetry are captured in: [`Performance Analysis: SDXL Transition & Semantic Optimization`](./reports/sdxl_transition.md).
+* **Iterative Optimization Sweeps:** Following the transition, two critical optimization sweeps were executed to resolve prompt pollution and hardware limits:
+  1. **Prompt Slicing & Iteration (`plain_cat_1_1`):** Analyzed token behavior on a mathematically isolated subject (a cosmic cat) to clear conflicting prompt signals. Iterations step-by-step isolated subject modifiers from background noise (`v1_1` to `v2_2`) and introduced prompt weights to adjust emotional emphasis (`v3_1`). *Summary:* [`Prompt Iteration Evaluation on SDXL Base 1.0`](./reports/prompt_iteration_cat.md).
+  2. **Parameter Sensitivity Sweep (`plain_cat_2`):** Run on an NVIDIA Tesla T4 backend, this matrix evaluated the interactions between CFG, Steps, Samplers, and Schedulers[cite: 1]. It identified a distinct "Goldilocks Zone" (Steps=30, CFG=8), beyond which non-linear degradation occurred, such as chromatic burn and texture breakdown. *Summary:* [`SDXL A/B Testing Matrix & Inference Optimization`](./reports/parameter_sensitivity.md).
+
+### Phase 4: Spatial Conditioning via ControlNet (Canny)
+* **Context & Bottleneck:** While prompt token adjustment and parameter tuning optimized semantic output, they could not resolve the fundamental structural limits inherent to SDXL's base composition engine when dealing with highly complex geometric boundaries.
+* **Implementation:** Integrated dense spatial conditioning via ControlNet (Canny edge detection) to enforce invariant geometric boundaries across text mutations[cite: 1]. Testing focused on precise "Object Removal and Addition" tasks by calibrating `High threshold`, `Strength`, `End Percent`, and Gaussian Blur `Sigma`. This allowed the system to isolate and map the exact "point of no return"—the threshold of **Semantic Handover** where spatial conditioning loses control to text-prompt generation.
+* **Historical Documentation:** Documented in: [`Structural Conditioning and Parameter Calibration Report`](./reports/controlnet_canny.md).
+
+### Phase 5: Semantic Isolation & Regression Testing
+* **Context & Bottleneck:** Processing complex prompts through ControlNet and dynamic weights revealed a telemetry flaw: passing complete, unified prompt strings into the CLIP validator caused massive signal cross-contamination between subject and style scores[cite: 1].
+* **Implementation:** Refactored the data ingest to explicitly decouple subject nouns from stylistic modifiers before tensor scoring[cite: 1]. To ensure that this major telemetry rewrite did not alter historical calculation accuracy, a strict **Regression Test Subsystem** (`run_test_identity_check`) was built to verify metric stability down to floating-point precision[cite: 1].
+
+### Phase 6: Statistical Trend Aggregation
+* **Context & Bottleneck:** Evaluation matrices grew too massive for linear row-by-row comparisons. 
+* **Implementation:** Replaced raw telemetry outputs with mathematical delta indicators[cite: 1]. The system now automatically aggregates paired execution lanes into dynamic indicators: `V1_Mean`, `V2_Mean`, `Delta_Mean`, and `Improved_Pct` to capture macro-level model performance shifts[cite: 1].
+
+### Phase 7: Deterministic Initialization via Golden Seeds
+* **Context & Bottleneck:** Random seeds frequently introduced structural outliers that skewed statistical averages, making poor prompt variants look artificially performant due to lucky initial noise.
+* **Implementation:** Replaced arbitrary noise with a curated array of verified `Golden Seeds`—distributions proven to yield optimal compositional complexity—ensuring hyperparameter variations were evaluated against reliable baselines[cite: 1].
+
+### Phase 8: Native Backend Consolidation (Current State)
+* **Context & Bottleneck:** The system had grown into a fragmented array of external API calls, pipeline scripts, and file system watches, causing immense disk I/O bottlenecks and frequent memory leak collisions.
+* **Implementation:** Fully consolidated all isolated procedural scripts, testing harnesses, and scoring engines into native ComfyUI Python extensions (`Custom Nodes`)[cite: 1]. This centralized the tensor data-flow directly within the execution graph[cite: 1].
+* **Framework Telemetry Report:** The benchmarks, architecture, and performance results of this fully consolidated custom node structure are maintained in the root report: [`report.md`](./report.md)[cite: 1].
+
 ---
 
 ## Methodological Trade-offs & Current Limitations
 
 ### Design Choices
-* **Atomic Slicing ($max\_micro\_batch\_size = 1$):** Prioritizes hardware stability and total parameter isolation over raw throughput. It eliminates VRAM spikes at the cost of parallel processing efficiency, making it highly reliable for prolonged unmonitored sweeps on standard infrastructure.
-* **Rigid Seed Rotation:** The system enforces a strict constraint where shifting hyperparameters are tested against an invariant seed within an execution slice, and the seed rotates exclusively between macro-iterations:
-$$\text{Seed}_{I} = \text{Constant for all } H_{\kappa}, \quad \text{Seed}_{I} \neq \text{Seed}_{I+1}$$
-This isolates noise distribution from parameter behavior, though it requires broader matrices to average out seed-specific bias.
+* **Atomic Slicing ($max\_micro\_batch\_size = 1$):** Prioritizes hardware stability and total parameter isolation over raw throughput[cite: 1]. It eliminates VRAM spikes at the cost of parallel processing efficiency, making it highly reliable for prolonged unmonitored sweeps on standard infrastructure[cite: 1].
+* **Rigid Seed Rotation:** The system enforces a strict constraint where shifting hyperparameters are tested against an invariant seed within an execution slice, and the seed rotates exclusively between macro-iterations[cite: 1]: 
+$$\text{Seed}_{I} = \text{Constant for all } H_{\kappa}, \quad \text{Seed}_{I} \neq \text{Seed}_{I+1}$$[cite: 1]
+This isolates noise distribution from parameter behavior, though it requires broader matrices to average out seed-specific bias[cite: 1].
 
 ### Current Limitations
-* **Linear Sigma Scaling Vulnerability:** When sweeping deeply varied `Steps` ranges (e.g., 15 vs 40 steps), native ComfyUI schedulers recalculate the entire noise-depletion grid. Consequently, step 10 in a 15-step run represents a different noise level than step 10 in a 40-step run, subtly shifting the generation path.
-* **Cold-Start Telemetry Latency:** The system does not currently account for CUDA warm-up times or weight-offloading delays during the initial execution slice, which slightly skews the execution time metric for the first frame of a batch.
+* **Linear Sigma Scaling Vulnerability:** When sweeping deeply varied `Steps` ranges (e.g., 15 vs 40 steps), native ComfyUI schedulers recalculate the entire noise-depletion grid[cite: 1]. Consequently, step 10 in a 15-step run represents a different noise level than step 10 in a 40-step run, subtly shifting the generation path[cite: 1].
+* **Cold-Start Telemetry Latency:** The system does not currently account for CUDA warm-up times or weight-offloading delays during the initial execution slice, which slightly skews the execution time metric for the first frame of a batch[cite: 1].
 
 ---
 
 ## Getting Started
 
-1. **Matrix Definition:** Configure your target variables within the execution dictionary inside the configuration module.
+1. **Matrix Definition:** Configure your target variables within the execution dictionary inside the configuration module [`multi_prompt.json`](./multi_prompt.json).
 2. **Execution:** Execute the headless orchestration layer:
-   ```bash
+```bash
    python orchestrator.py
-2. **Data Retrieval:** Upon pipeline completion, inspect the analytical summary directly inside output/prompt_ranking.csv.
+
+1. **Matrix Definition:** 
+3. **Data Retrieval:** Upon pipeline completion, inspect the analytical summary directly inside the output directory: output/prompt_ranking.csv[cite: 1].
