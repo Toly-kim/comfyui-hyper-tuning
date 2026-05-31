@@ -9,14 +9,17 @@ This repository contains a server-side framework engineered for automated Grid S
 The framework operates via a decoupled server-side orchestration loop that bypasses the standard ComfyUI client interface. It flattens multi-dimensional parameter matrices, forces isolated micro-batch processing to manage VRAM overhead, and evaluates the output tensors natively.
 
 ### 1. `PromptBatchLoader` (Custom Node)
+* **Source:** [`prompt_batch_loader.py`](./src/ComfyUI/custom_nodes/prompt_utils/prompt_batch_loader.py)
 * **Function:** Serves as the matrix unrolling engine. It accepts a multi-dimensional JSON configuration matrix containing variant strings, steps, target CFG scales, and seed arrays. It flattens these permutations into synchronized index-linked arrays of length $N$ and programmatically overrides downstream batch allocation variables.
 
 ### 2. `MicroBatchKSampler` (Custom Node)
+* **Source:** [`prompt_batch_loader.py`](./src/ComfyUI/custom_nodes/prompt_utils/micro_batch_sampler.py)
 * **Function:** Manages compute isolation and mid-loop parameter injection. By enforcing a strict `max_micro_batch_size = 1` constraint, it sequentially iterates through the generation queue, dynamically reconfiguring `CFG`, `Steps`, and `Seed` parameters at runtime per individual frame. 
 * **Edge-Case Handling:** Implements a localized token-slicing method (`slice_conditioning`) that isolates positive and negative text embeddings. If the parameter sweep depth outnumbers the textual variants, the loop retains the final valid token index to prevent index out-of-bounds errors and subsequent noise scheduler failures.
 * **Data Integrity:** Outputs the final concatenated tensor explicitly wrapped as a single-element Python tuple `({"samples": merged_samples},)` to guarantee alignment with ComfyUI's down-stream unpacking expectations (`VAEDecode`).
 
 ### 3. `MultiMetricScorer` (Custom Node)
+* **Source:** [`prompt_batch_loader.py`](./src/ComfyUI/custom_nodes/prompt_utils/multi_metric_scorer.py)
 * **Function:** Performs automated, post-decode tensor analysis. It extracts pixel data directly from the VAE layer and routes it through two primary analytical pipelines:
   * **Semantic Alignment:** Evaluates prompt adherence using the `openai/clip-vit-large-patch14` embedding space.
   * **Structural Sharpness:** Computes a Laplacian variance kernel to detect edge contrast quality and capture pixel burnout or texture degradation.
