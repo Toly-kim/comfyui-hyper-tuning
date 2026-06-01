@@ -38,7 +38,7 @@ The infrastructure reached its current state through an iterative series of deve
 
 ### Phase 2: Paired Evaluation Paradigm
 * **Context & Bottleneck:** Having raw metrics for individual images was insufficient for tracking specific prompt or checkpoint updates without a controlled baseline.
-* **Implementation:** Designed a structured architecture for automated **Paired Evaluation**. Operating as a direct analogy to classic A/B testing, it ran dual-variant inferences under strictly identical environments to isolate single-variable impacts [`run_same_seed_another_prompt`](./src/core/propmt_run.py).
+* **Implementation:** Designed a structured architecture for automated **Paired Evaluation**, incorporating multi-metric scoring (SSIM, LPIPS, color consistency) and delta-based comparison to quantify perceptual similarity, structural fidelity, and regression shifts across prompt variants ([`get_extended_metrics`](./src/metrics/make_metrics_and_img_grids.py)). Operating as a direct analogy to classic A/B testing, it ran dual-variant inferences under strictly identical environments to isolate single-variable impacts [`run_same_seed_another_prompt`](./src/core/propmt_run.py).
 
 ### Phase 3: Transition to SDXL & Matrix Expansion
 * **Context & Bottleneck:** Moving to SDXL introduced massive composition shifts that random seeding obscured. 
