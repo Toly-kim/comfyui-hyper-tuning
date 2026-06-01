@@ -75,14 +75,14 @@ The infrastructure reached its current state through an iterative series of deve
 ## Methodological Trade-offs & Current Limitations
 
 ### Design Choices
-* **Atomic Slicing ($max\_micro\_batch\_size = 1$):** Prioritizes hardware stability and total parameter isolation over raw throughput[cite: 1]. It eliminates VRAM spikes at the cost of parallel processing efficiency, making it highly reliable for prolonged unmonitored sweeps on standard infrastructure[cite: 1].
-* **Rigid Seed Rotation:** The system enforces a strict constraint where shifting hyperparameters are tested against an invariant seed within an execution slice, and the seed rotates exclusively between macro-iterations[cite: 1]: 
-$$\text{Seed}_{I} = \text{Constant for all } H_{\kappa}, \quad \text{Seed}_{I} \neq \text{Seed}_{I+1}$$[cite: 1]
-This isolates noise distribution from parameter behavior, though it requires broader matrices to average out seed-specific bias[cite: 1].
+* **Atomic Slicing ($max\_micro\_batch\_size = 1$):** Prioritizes hardware stability and total parameter isolation over raw throughput. It eliminates VRAM spikes at the cost of parallel processing efficiency, making it highly reliable for prolonged unmonitored sweeps on standard infrastructure [`micro_batch_sampler.py`](./src/ComfyUI/custom_nodes/prompt_utils/micro_batch_sampler.py).
+* **Rigid Seed Rotation:** The system enforces a strict constraint where shifting hyperparameters are tested against an invariant seed within an execution slice, and the seed rotates exclusively between macro-iterations ([see loop orchestration](./src/multi_prompt/orchestrator.py)): 
+$$\text{Seed}_{I} = \text{Constant for all } H_{\kappa}, \quad \text{Seed}_{I} \neq \text{Seed}_{I+1}$$
+This configuration (defined within ([multi_prompt.json](./config/multi_prompt.json))) isolates noise distribution from parameter behavior, though it requires broader matrices to average out seed-specific bias (for visual verification of latent stability, see steps_15_00001_.png - exponential_00006_.png on google Drive.
 
 ### Current Limitations
-* **Linear Sigma Scaling Vulnerability:** When sweeping deeply varied `Steps` ranges (e.g., 15 vs 40 steps), native ComfyUI schedulers recalculate the entire noise-depletion grid[cite: 1]. Consequently, step 10 in a 15-step run represents a different noise level than step 10 in a 40-step run, subtly shifting the generation path[cite: 1].
-* **Cold-Start Telemetry Latency:** The system does not currently account for CUDA warm-up times or weight-offloading delays during the initial execution slice, which slightly skews the execution time metric for the first frame of a batch[cite: 1].
+* **Linear Sigma Scaling Vulnerability:** When sweeping deeply varied `Steps` ranges (e.g., 15 vs 40 steps), native ComfyUI schedulers recalculate the entire noise-depletion grid. Consequently, step 10 in a 15-step run represents a different noise level than step 10 in a 40-step run, subtly shifting the generation path.
+* **Cold-Start Telemetry Latency:** The system does not currently account for CUDA warm-up times or weight-offloading delays during the initial execution slice, which slightly skews the execution time metric for the first frame of a batch.
 
 ---
 
