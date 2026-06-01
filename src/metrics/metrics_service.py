@@ -7,7 +7,7 @@ from PIL import Image
 from skimage.metrics import structural_similarity as ssim
 from transformers import CLIPProcessor, CLIPModel
 
-# Настройка устройства (как статическое поле в Java)
+# Настройка устройства
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 _clip_model = None

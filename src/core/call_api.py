@@ -35,17 +35,6 @@ from typing import Optional, Dict, Any
 
 
 def get_history_id(cfg, history_id: str) -> Optional[Dict[str, Any]]:
-    """
-    Fetch ComfyUI history by prompt_id.
-
-    Returns:
-        dict → response JSON
-        None → on failure
-    """
-
-    # BASE_URL = "http://127.0.0.1:8188"  # move to config if needed
-    # TIMEOUT = 30
-
     srv_cfg = cfg['server']
     srv_runs = cfg['runs']
     # timeout = srv_runs['timeout']
@@ -96,10 +85,6 @@ def _request_srv(full_url: str, headers: dict, timeout: float, json_data: dict) 
         return None
 
 def wait_for_filename(prompt_id, cfg, timeout=300):
-    """
-    Опрашивает сервер ComfyUI до тех пор, пока генерация не завершится.
-    Возвращает имя файла из истории выполнения.
-    """
     srv_cfg = cfg['server']
     history_url = f"{srv_cfg['url'].rstrip('/')}/history/{prompt_id}"
 

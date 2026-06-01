@@ -11,7 +11,6 @@ def analyze_results():
     csv_filename = p['metrics_log_csv']
     summary_output = p['summary_stats_csv']
 
-    # Пороги из конфига
     delta_mean_threshold = p.get('delta_mean_threshold', 0.01)
     improved_pct_threshold = p.get('improved_pct_threshold', 50.0)
 
@@ -24,7 +23,6 @@ def analyze_results():
         print(f"⚠️ File is empty")
         return
 
-    # Чистим данные
     df = df.apply(pd.to_numeric, errors='coerce')
 
     # Настройка полярности метрик (1: больше=лучше, -1: меньше=лучше)
@@ -102,11 +100,10 @@ def analyze_results():
         pd.DataFrame(summary_data).to_csv(summary_output, index=False)
         print("=" * 60)
         print(f"💾 Report saved to: {summary_output}")
+
 def test_paired_results():
     p = get_run_params2()
     csv_filename = p['metrics_log_csv']
-    # summary_output = p.get('summary_stats_csv', 'summary_stats.csv')
-    # summary_output = p.get('summary_stats_csv')
     summary_output = p['test_paired_results']
 
     if not csv_filename or not os.path.exists(csv_filename):
@@ -118,7 +115,6 @@ def test_paired_results():
         print(f"⚠️ File is empty")
         return
 
-    # Чистим данные от NaN один раз для всех колонок сразу
     df = df.apply(pd.to_numeric, errors='coerce')
 
     paired_metrics = {
@@ -135,7 +131,6 @@ def test_paired_results():
         v1_col, v2_col = f'{key}_v1', f'{key}_v2' # the same for regress testing
 
         if v1_col in df.columns and v2_col in df.columns:
-            # Выбираем только чистые пары
             valid_df = df[[v1_col, v2_col]].dropna()
 
             v1 = valid_df[v1_col]

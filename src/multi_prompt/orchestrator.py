@@ -24,8 +24,6 @@ def prepare_prompt_versions_matrix(current_exp: dict, total_runs: int) -> list:
             if not subject:
                 continue
 
-            # Извлекаем индивидуальные параметры инференса для данной версии.
-            # Если они не заданы в словаре версии, берем стандартные безопасные дефолты.
             version_cfg = float(node.get("cfg", 7.0))
             version_steps = int(node.get("steps", 20))
 
@@ -36,8 +34,8 @@ def prepare_prompt_versions_matrix(current_exp: dict, total_runs: int) -> list:
                 "style": node.get("style", ""),
                 "iteration": int(run_idx),
                 "seed": session_seed,
-                "cfg": version_cfg,  # Инжектируем в JSON для PromptBatchLoader
-                "steps": version_steps  # Инжектируем в JSON для PromptBatchLoader
+                "cfg": version_cfg,
+                "steps": version_steps
             })
     return mega_variants
 
@@ -83,7 +81,6 @@ def _inject_workflow_inputs(wf: dict, mega_variants: list, params: dict) -> dict
         elif cls_type == "SaveImage":
             save_id = node_id
 
-    # Валидация
     missing_nodes = []
     if not ks_id: missing_nodes.append("MicroBatchKSampler/KSampler")
     if not loader_id: missing_nodes.append("PromptBatchLoader")

@@ -38,7 +38,6 @@ def run_metrics():
     output_csv = p['metrics_log_csv']
     output_dir = p['output_grid']
 
-    # Промпты для расчета CLIP (уже выбранные из активного эксперимента)
     prompt_v1_sub = p['p1_sub']
     prompt_v1_sty = p['p1_sty']
     prompt_v2_sub = p['p2_sub']
@@ -126,9 +125,6 @@ def run_test_identity_check():
     base_drive_path = p['input_drive']
     input_csv = p['csv_paired']
     output_csv = p['test_metrics_log_csv']
-    # не бум клеить
-    # output_dir = p['output_grid']
-
     prompt_v1_sub = p['p1_sub']
     prompt_v1_sty = p['p1_sty']
     prompt_v2_sub = p['p2_sub']
@@ -193,21 +189,6 @@ def run_test_identity_check():
                     # path2, prompt_v2_sub, prompt_v2_sty,
                     # path2, prompt_v2_sub, prompt_v2_sty
                 )
-
-                # header = [
-                #     "run_id", "seed", "img_v1",
-                #     "clip_sub_v1",
-                #     "clip_sub_v1",
-                #     "CLIP Subject Delta",
-                #     "clip_sty_v1",
-                #     "clip_sty_v1",
-                #     "CLIP Style Delta",
-                #     "lpips", "ssim",
-                #     "sharpness_v1",
-                #     "sharpness_v1",
-                #     "Sharpness Delta",
-                #     "color_dist"
-                # ]
 
                 writer.writerow([
                     row['run_id'], seed, path1,
@@ -299,7 +280,6 @@ def compute_metrics():
         group_key = (row["batch_id"], row["seed"])
         groups[row["seed"]].append(row)
 
-    # for seed, rows in groups.items():
     for (batch_id, seed), rows in groups.items():
         subject_vals = [r["subject"] for r in rows]
         style_vals = [r["style"] for r in rows]
@@ -332,7 +312,6 @@ def compute_metrics():
         writer.writerow(header)
 
         for row in all_rows:
-            # --- sharpness guard ---
             if row["subject_norm"] < 0.2:
                 sharp_w = 0
             else:
@@ -364,9 +343,6 @@ def compute_metrics():
     print(f"🏁 Done. Output: {output_csv}")
 
 def compute_score(metrics: dict, weights: dict) -> float:
-    # lpips = metrics.get("lpips")
-    # lpips_inv = 1 - lpips if lpips is not None else 0
-
     sharpness = metrics.get("sharpness", 0)
     sharpness_norm = min(sharpness / 100.0, 1.0)
 
@@ -496,7 +472,6 @@ def aggregate_best_by_prompt_version():
 
     total_n = len(total_seeds)
 
-    # --- 2. WRITE ---
     with open(output_csv, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
 
@@ -536,6 +511,5 @@ def aggregate_best_by_prompt_version():
 
     print(f"🏁 Done. Aggregated results: {output_csv}")
 
-# Main execution
 if __name__ == "__main__":
     run_metrics() # paired_results.csv

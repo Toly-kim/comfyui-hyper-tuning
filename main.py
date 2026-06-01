@@ -5,12 +5,12 @@ from src.metrics import analyze_pairs
 
 if __name__ == "__main__":
 # For paired experiment
-#     propmt_run.run_random_seeds() # runs_log.csv
-    # propmt_run.run_same_seed_another_prompt()  # paired_results.csv
-    # calculate_metrics.run_metrics()  # metrics_log.csv
-    # calculate_metrics.run_test_identity_check()  # Regression test1
-    # analyze_pairs.analyze_results()  # summary_stats_csv
-    # propmt_run.run_golden_seeds() #
+    propmt_run.run_random_seeds() # runs_log.csv
+    propmt_run.run_same_seed_another_prompt()  # paired_results.csv
+    calculate_metrics.run_metrics()  # metrics_log.csv
+    calculate_metrics.run_test_identity_check()  # Regression test1
+    analyze_pairs.analyze_results()  # summary_stats_csv
+    propmt_run.run_golden_seeds() #
 
 # Best-output selector -> Custom node
     selector.run_multi_seed_for_all_prompts()  # all_prompts_results.csv
