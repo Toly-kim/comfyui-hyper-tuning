@@ -1,12 +1,12 @@
 # ComfyUI Prompt Evaluation and Tuning Framework
 
-This repository contains a server-side framework engineered for automated Grid Search, regression testing, and hyperparameter optimization within the ComfyUI ecosystem. It is designed to replace manual, interface-driven testing with structured execution matrices and objective, multi-metric evaluation vectors.
+This repository provides a server-side workflow for running structured prompt and parameter experiments in ComfyUI. It focuses on automating grid-style testing, basic regression checks, and multi-metric evaluation, reducing the need for manual, interface-driven iteration.
 
 ---
 
 ## Technical Architecture & Core Components
 
-The framework operates via a decoupled server-side orchestration loop that bypasses the standard ComfyUI client interface. It flattens multi-dimensional parameter matrices, forces isolated micro-batch processing to manage VRAM overhead, and evaluates the output tensors natively.
+The system runs as a lightweight orchestration loop outside the standard ComfyUI UI. It expands parameter combinations into executable batches, processes them sequentially to manage VRAM usage, and evaluates generated outputs directly from tensors using simple scoring functions.
 
 ### 1. `PromptBatchLoader` (Custom Node)
 * **Source:** [`prompt_batch_loader.py`](./src/ComfyUI/custom_nodes/prompt_utils/prompt_batch_loader.py)
