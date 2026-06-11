@@ -1,4 +1,4 @@
-# ComfyUI Hyperparameter Tuning & Metric Lab
+# ComfyUI Prompt Evaluation and Tuning Framework
 
 This repository contains a server-side framework engineered for automated Grid Search, regression testing, and hyperparameter optimization within the ComfyUI ecosystem. It is designed to replace manual, interface-driven testing with structured execution matrices and objective, multi-metric evaluation vectors.
 
